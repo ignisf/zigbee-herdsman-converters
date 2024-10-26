@@ -1058,7 +1058,7 @@ const definitions: DefinitionWithExtend[] = [
             numeric({
                 name: 'valve_position',
                 cluster: 'customSonoffTrvzb',
-                attribute: 'valvePostion',
+                attribute: 'valvePosition',
                 entityCategory: 'config',
                 description:
                     'Valve position (percentage) control. ' +
