@@ -920,6 +920,7 @@ const definitions: DefinitionWithExtend[] = [
                 .withSystemMode(['off', 'auto', 'heat'], ea.ALL, 'Mode of the thermostat')
                 .withRunningState(['idle', 'heat'], ea.STATE_GET),
             e.battery(),
+            e.valve_position(),
         ],
         fromZigbee: [fz.thermostat, fz.battery],
         toZigbee: [
@@ -945,6 +946,7 @@ const definitions: DefinitionWithExtend[] = [
                     valveMotorRunningVoltage: {ID: 0x6007, type: Zcl.DataType.UINT16},
                     valveOpeningDegree: {ID: 0x600b, type: Zcl.DataType.UINT8},
                     valveClosingDegree: {ID: 0x600c, type: Zcl.DataType.UINT8},
+                    valvePosition: {ID: 0x600e, type: Zcl.DataType.UINT8},
                 },
                 commands: {},
                 commandsResponse: {},
@@ -1049,6 +1051,21 @@ const definitions: DefinitionWithExtend[] = [
                     'If the closing degree is set to 0%, the valve is fully opened when it is closed, ' +
                     'and the default value is 100%. ' +
                     'Note: Only version v1.1.4 or higher is supported.',
+                valueMin: 0.0,
+                valueMax: 100.0,
+                valueStep: 1.0,
+                unit: '%',
+            }),
+            numeric({
+                name: 'valve_position',
+                cluster: 'customSonoffTrvzb',
+                attribute: 'valvePostion',
+                entityCategory: 'config',
+                description:
+                    'Valve position (percentage) control. ' +
+                    'If the position is set to 0%, the valve is fully closed. ' +
+                    'If the position is set to 100%, the valve is fully opened.' +
+                    'Note: Only version v1.2.1 or higher is supported.',
                 valueMin: 0.0,
                 valueMax: 100.0,
                 valueStep: 1.0,
