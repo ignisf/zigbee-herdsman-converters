@@ -920,7 +920,6 @@ const definitions: DefinitionWithExtend[] = [
                 .withSystemMode(['off', 'auto', 'heat'], ea.ALL, 'Mode of the thermostat')
                 .withRunningState(['idle', 'heat'], ea.STATE_GET),
             e.battery(),
-            e.valve_position(),
         ],
         fromZigbee: [fz.thermostat, fz.battery],
         toZigbee: [
@@ -1082,7 +1081,7 @@ const definitions: DefinitionWithExtend[] = [
             await reporting.thermostatOccupiedHeatingSetpoint(endpoint);
             await reporting.thermostatSystemMode(endpoint);
             await endpoint.read('hvacThermostat', ['localTemperatureCalibration']);
-            await endpoint.read(0xfc11, [0x0000, 0x6000, 0x6002, 0x6003, 0x6004, 0x6005, 0x6006, 0x6007]);
+            await endpoint.read(0xfc11, [0x0000, 0x6000, 0x6002, 0x6003, 0x6004, 0x6005, 0x6006, 0x6007, 0x600e]);
         },
     },
     {
