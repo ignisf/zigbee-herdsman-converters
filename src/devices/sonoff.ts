@@ -945,6 +945,7 @@ const definitions: DefinitionWithExtend[] = [
                     valveMotorRunningVoltage: {ID: 0x6007, type: Zcl.DataType.UINT16},
                     valveOpeningDegree: {ID: 0x600b, type: Zcl.DataType.UINT8},
                     valveClosingDegree: {ID: 0x600c, type: Zcl.DataType.UINT8},
+                    valvePosition: {ID: 0x600e, type: Zcl.DataType.UINT8},
                 },
                 commands: {},
                 commandsResponse: {},
@@ -1054,6 +1055,21 @@ const definitions: DefinitionWithExtend[] = [
                 valueStep: 1.0,
                 unit: '%',
             }),
+            numeric({
+                name: 'valve_position',
+                cluster: 'customSonoffTrvzb',
+                attribute: 'valvePosition',
+                entityCategory: 'config',
+                description:
+                    'Valve position (percentage) control. ' +
+                    'If the position is set to 0%, the valve is fully closed. ' +
+                    'If the position is set to 100%, the valve is fully opened.' +
+                    'Note: Only version v1.2.1 or higher is supported.',
+                valueMin: 0.0,
+                valueMax: 100.0,
+                valueStep: 1.0,
+                unit: '%',
+            }),
             sonoffExtend.weeklySchedule(),
             customTimeResponse('1970_UTC'),
             ota(),
@@ -1065,7 +1081,7 @@ const definitions: DefinitionWithExtend[] = [
             await reporting.thermostatOccupiedHeatingSetpoint(endpoint);
             await reporting.thermostatSystemMode(endpoint);
             await endpoint.read('hvacThermostat', ['localTemperatureCalibration']);
-            await endpoint.read(0xfc11, [0x0000, 0x6000, 0x6002, 0x6003, 0x6004, 0x6005, 0x6006, 0x6007]);
+            await endpoint.read(0xfc11, [0x0000, 0x6000, 0x6002, 0x6003, 0x6004, 0x6005, 0x6006, 0x6007, 0x600e]);
         },
     },
     {
